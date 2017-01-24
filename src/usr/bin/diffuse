@@ -3191,7 +3191,21 @@ class FileDiffViewer(Gtk.Grid):
         files = ["/tmp/analysis/xx" + str(i).zfill(7) for i in new_indices]
         self.loadFromInfo(0, FileInfo(files[0]))
         self.loadFromInfo(1, FileInfo(files[1]))
-            
+
+    def NEXTFILE_100(self):
+        new_indices = [i + 100 for i in self.current_files_index]
+        self.current_files_index = new_indices
+        files = ["/tmp/analysis/xx" + str(i).zfill(7) for i in new_indices]
+        self.loadFromInfo(0, FileInfo(files[0]))
+        self.loadFromInfo(1, FileInfo(files[1]))
+        
+    def PREVFILE_100(self):
+        new_indices = [i - 100 for i in self.current_files_index]
+        self.current_files_index = new_indices
+        files = ["/tmp/analysis/xx" + str(i).zfill(7) for i in new_indices]
+        self.loadFromInfo(0, FileInfo(files[0]))
+        self.loadFromInfo(1, FileInfo(files[1]))
+
     class Pane:
         def __init__(self):
             # list of lines displayed in this pane (including spacing lines)
@@ -3320,6 +3334,8 @@ class FileDiffViewer(Gtk.Grid):
         self._button_actions = {
             'NEXTFILE': self.NEXTFILE,
             'PREVFILE': self.PREVFILE,
+            'NEXTFILE_100': self.NEXTFILE_100,
+            'PREVFILE_100': self.PREVFILE_100,
             'undo': self.undo,
             'redo': self.redo,
             'cut': self.cut,
@@ -7646,6 +7662,8 @@ class Diffuse(Gtk.Window):
            [ Gtk.STOCK_PASTE, self.button_cb, 'paste', _('Paste') ],
            [ Gtk.STOCK_GO_BACK, self.button_cb, 'PREVFILE', _('PREVFILE') ],
 	   [ Gtk.STOCK_GO_FORWARD, self.button_cb, 'NEXTFILE', _('NEXTFILE') ],
+           [ Gtk.STOCK_GOTO_FIRST, self.button_cb, 'PREVFILE_100', _('PREVFILE_100') ],
+	   [ Gtk.STOCK_GOTO_LAST, self.button_cb, 'NEXTFILE_100', _('NEXTFILE_100') ],
            [ Gtk.STOCK_CLEAR, self.button_cb, 'clear_edits', _('Clear Edits') ] ])
         # avoid the button bar from dictating the minimum window size
         hbox.set_size_request(0, hbox.get_size_request()[1])
